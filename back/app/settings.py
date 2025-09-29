@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',  # Exemplo para frontend local
     'http://localhost:5174',  # Exemplo para frontend local
     'https://seusite.com',    # Adicione as URLs que você deseja permitir
 ]

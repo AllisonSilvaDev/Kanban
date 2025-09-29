@@ -1,15 +1,22 @@
 @use './variaveis.scss' as *;
 
 .containerQuadro {
-    width: 100%;    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     .containerQuadros {
         display: flex;
         justify-content: center;
         gap: 40px;
-        width: 100vw;
+        width: 100%;
+        padding: 30px;
 
         .quadro {
-            background-color: $background;
+            background-color: #ffffff44;
             max-width: 1660px;
             margin: 12px;
             display: flex;

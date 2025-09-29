@@ -78,91 +78,96 @@ export function CardTarefas() {
   };
 
   return (
-    <form
-      className="formulario"
-      onSubmit={handleSubmit}
-      role="form"
-      aria-labelledby="form-title"
-    >
-      <h2 id="form-title" className="titulo">Cadastro da Tarefa</h2>
-
-      {erro && (
-        <p role="alert" aria-live="assertive" style={{ color: 'red' }}>
-          {erro}
-        </p>
-      )}
-      {sucesso && (
-        <p role="alert" aria-live="polite" style={{ color: 'green' }}>
-          {sucesso}
-        </p>
-      )}
-
-      <label htmlFor="descricao">Descrição:</label>
-      <input
-        id="descricao"
-        type="text"
-        value={descricao}
-        onChange={(e) => setDescricao(e.target.value)}
-        required
-        aria-required="true"
-      />
-
-      <label htmlFor="setor">Setor:</label>
-      <input
-        id="setor"
-        type="text"
-        value={setor}
-        onChange={(e) => setSetor(e.target.value)}
-        required
-        aria-required="true"
-      />
-
-      <label htmlFor="usuario">Usuário:</label>
-      <select
-        id="usuario"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-        required
-        aria-required="true"
+    <>
+      <form
+        className="formulario"
+        onSubmit={handleSubmit}
+        role="form"
+        aria-labelledby="form-title"
       >
-        <option value="">Selecione um usuário</option>
-        {usuarios.map((user) => (
-          <option key={user.id} value={user.id}>
-            {user.nome}
-          </option>
-        ))}
-      </select>
+        <h2 id="form-title" className="titulo">Cadastro da Tarefa</h2>
 
-      <label htmlFor="prioridade">Prioridade:</label>
-      <select
-        id="prioridade"
-        value={prioridade}
-        onChange={(e) => setPrioridade(e.target.value)}
-        required
-        aria-required="true"
-      >
-        <option value="">Selecione a prioridade</option>
-        <option value="Alta">Alta</option>
-        <option value="Média">Média</option>
-        <option value="Baixa">Baixa</option>
-      </select>
+        {erro && (
+          <p role="alert" aria-live="assertive" style={{ color: 'red' }}>
+            {erro}
+          </p>
+        )}
+        {sucesso && (
+          <p role="alert" aria-live="polite" style={{ color: 'green' }}>
+            {sucesso}
+          </p>
+        )}
 
-      <label htmlFor="status">Status:</label>
-      <select
-        id="status"
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        required
-        aria-required="true"
-      >
-        <option value="fazer">A Fazer</option>
-        <option value="fazendo">Fazendo</option>
-        <option value="concluido">Concluído</option>
-      </select>
+        <label htmlFor="descricao">Descrição:</label>
+        <input
+          id="descricao"
+          type="text"
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          required
+          aria-required="true"
+        />
 
-      <a href="/"><h1>Home</h1></a>
+        <label htmlFor="setor">Setor:</label>
+        <input
+          id="setor"
+          type="text"
+          value={setor}
+          onChange={(e) => setSetor(e.target.value)}
+          required
+          aria-required="true"
+        />
 
-      <button type="submit">Cadastrar</button>
-    </form>
+        <label htmlFor="usuario">Usuário:</label>
+        <select
+          id="usuario"
+          value={usuario}
+          onChange={(e) => setUsuario(e.target.value)}
+          required
+          aria-required="true"
+        >
+          <option value="">Selecione um usuário</option>
+          {usuarios.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.nome}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor="prioridade">Prioridade:</label>
+        <select
+          id="prioridade"
+          value={prioridade}
+          onChange={(e) => setPrioridade(e.target.value)}
+          required
+          aria-required="true"
+        >
+          <option value="">Selecione a prioridade</option>
+          <option value="Alta">Alta</option>
+          <option value="Média">Média</option>
+          <option value="Baixa">Baixa</option>
+        </select>
+
+        <label htmlFor="status">Status:</label>
+        <select
+          id="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          required
+          aria-required="true"
+        >
+          <option value="fazer">A Fazer</option>
+          <option value="fazendo">Fazendo</option>
+          <option value="concluido">Concluído</option>
+        </select>
+
+
+        <button type="submit">Cadastrar</button>
+      </form>
+      <div className="">
+        <a href="/"><h1>Home</h1></a>
+      </div>
+
+    </>
   );
 }

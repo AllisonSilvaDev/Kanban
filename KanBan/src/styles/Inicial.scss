@@ -1,1 +1,18 @@
 @use './variaveis.scss' as *;
+
+
+.main-content{
+    width: 100%;
+}
+
+.layout{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGxhbm8lMjBkZSUyMGZ1bmRvJTIwcGFpc2FnZW18ZW58MHx8MHx8fDA%3D");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #c0c0c0;
+}

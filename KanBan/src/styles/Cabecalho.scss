@@ -1,7 +1,7 @@
 @use './variaveis.scss' as *;
 
 .cabecalho {
-    background-color: $cor-destaque;
+    background-color: rgba(0, 0, 0, 0.261);
     height: 80px;
     width: 100vw;
     display: flex;
@@ -11,7 +11,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 0  ;
     transition: all 0.3s ease-in-out;
 
     &:hover {
@@ -19,7 +19,7 @@
     }
 
     .titulo {
-        color: $background;
+        color: white;
         font-size: $font-subtitulo;
         margin-left: 30px;
         padding: 10px;
@@ -27,10 +27,6 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         transition: color 0.3s ease;
-
-        &:hover {
-            color: red; /* Cor ao passar o mouse */
-        }
     }
 
     /* Ajuste para os itens de navegação (caso tenha) */
