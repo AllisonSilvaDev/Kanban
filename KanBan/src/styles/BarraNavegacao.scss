@@ -1,0 +1,21 @@
+@use './variaveis.scss' as *;
+
+.barra{
+    background-color: $cor-destaque;
+    height: 40px;
+    display: flex;
+
+    ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        color: white;
+        a{
+            color: white;
+        }
+        a:hover{
+            border-bottom: 1px solid white;
+        }
+    }
+}

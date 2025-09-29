@@ -1,0 +1,108 @@
+@use './variaveis.scss' as *;
+
+.coluna {
+    background-color: $cor-tarefa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1 1 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitulo {
+        font-size: $font-subtitulo;
+        font-weight: bold;
+        color: $cor-destaque;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .container-status {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        label {
+            font-size: 14px;
+            color: $cor-destaque;
+        }
+
+        select {
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid white;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: $cor-destaque;
+        }
+    }
+
+    .container-button {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+
+        .button {
+            button {
+                background-color: $cor-destaque;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            button:hover {
+                background-color: rgb(64, 99, 255);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            }
+
+            button:active {
+                background-color: rgb(48, 72, 200);
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+// Responsividade para telas menores
+@media (max-width: 768px) {
+    .coluna {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .container-status {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container-button {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+

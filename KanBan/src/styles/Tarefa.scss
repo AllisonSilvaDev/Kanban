@@ -1,0 +1,20 @@
+@use './variaveis.scss' as *;
+
+/* Estilo para o item de tarefa */
+.tarefa-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.tarefa-item {
+    background-color: #fafafa;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* Adicionando margens e espaçamento */
+.tarefa-item p {
+    margin: 5px 0;
+}
