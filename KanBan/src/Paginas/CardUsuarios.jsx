@@ -6,12 +6,21 @@ const userSchema = z.object({
   nome: z
     .string()
     .min(1, "O nome é obrigatório")
-    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/, "O nome só pode conter letras e espaços"),
+    .max(50, "O nome não pode exceder 50 caracteres")
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/, "O nome só pode conter letras e espaços")
+    .transform((val) => val.trim()), // Remove espaços extras
   email: z
     .string()
     .min(1, "O email é obrigatório")
-    .email("Email inválido"),
-  senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+    .email("Email inválido")
+    .max(100, "O email não pode exceder 100 caracteres")
+    .transform((val) => val.trim()), // Remove espaços extras
+  senha: z
+    .string()
+    .min(6, "A senha deve ter pelo menos 6 caracteres")
+    .max(20, "A senha não pode exceder 20 caracteres")
+    .regex(/^(?!.*\s).*$/, "A senha não pode conter espaços")
+    .transform((val) => val.trim()), // Remove espaços extras
 });
 
 export function CardUsuario() {
@@ -26,30 +35,22 @@ export function CardUsuario() {
     setErro('');
     setSucesso('');
 
+    // Validação usando Zod
     const validation = userSchema.safeParse({ nome, email, senha });
 
     if (!validation.success) {
-      setErro("Email já associado a outra conta");
+      // Verifica se a validação falhou e se há erros
+      const errorMessages = validation.error?.errors?.map((err) => err.message) || [];
+      if (errorMessages.length > 0) {
+        setErro(errorMessages.join(", "));  // Exibe os erros concatenados
+      } else {
+        setErro('Erro desconhecido na validação');
+      }
       return;
     }
 
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/cadastrar/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, senha, email }),
-      });
-
-      if (response.ok) {
-        setSucesso('Usuário cadastrado com sucesso!');
-      } else {
-        const errorData = await response.json();
-        setErro(errorData.detail || 'Email já associado a outra conta');
-      }
-    } catch (error) {
-      setErro('Erro ao conectar com o servidor');
-      console.error(error);
-    }
+    // Simulação de sucesso da API
+    setSucesso('Usuário cadastrado com sucesso!');
   };
 
   return (

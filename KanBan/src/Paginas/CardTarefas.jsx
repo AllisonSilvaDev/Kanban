@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { set, z } from 'zod';
+import { z } from 'zod';
 
 // Esquema de validação com Zod
 const tarefaSchema = z.object({
   descricao: z
     .string()
-    .min(1, 'A descrição é obrigatória'),
+    .min(1, 'A descrição é obrigatória')
+    .max(200, 'A descrição não pode exceder 200 caracteres'),
   setor: z
     .string()
-    .min(1, 'O setor é obrigatório'),
-  usuario: z.string().min(1, 'O usuário é obrigatório'),
+    .min(1, 'O setor é obrigatório')
+    .max(50, 'O setor não pode exceder 50 caracteres'),
+  usuario: z
+    .string()
+    .min(1, 'O usuário é obrigatório')
+    .regex(/^\d+$/, 'Usuário inválido'), // Garante que o usuário seja um número (ID)
   prioridade: z.enum(['Alta', 'Média', 'Baixa'], 'Prioridade inválida'),
   status: z.enum(['fazer', 'fazendo', 'concluido'], 'Status inválido'),
 });
@@ -34,6 +39,7 @@ export function CardTarefas() {
         setErro('Erro ao carregar usuários');
       }
     } catch (error) {
+      console.log(error)
       setErro('Erro de rede ou servidor');
     }
   };
@@ -50,6 +56,7 @@ export function CardTarefas() {
     const validation = tarefaSchema.safeParse({ descricao, setor, usuario, prioridade, status });
 
     if (!validation.success) {
+      // Exibe os erros de validação concatenados
       setErro(validation.error.errors.map(err => err.message).join(', '));
       return;
     }
@@ -72,7 +79,7 @@ export function CardTarefas() {
         setErro(errorData.detail || 'Erro ao cadastrar tarefa');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setErro('Erro de rede ou servidor');
     }
   };
@@ -161,13 +168,11 @@ export function CardTarefas() {
           <option value="concluido">Concluído</option>
         </select>
 
-
         <button type="submit">Cadastrar</button>
       </form>
       <div className="">
         <a href="/"><h1>Home</h1></a>
       </div>
-
     </>
   );
 }

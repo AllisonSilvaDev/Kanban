@@ -17,6 +17,7 @@ export default function Quadro() {
                 setErro('Erro ao carregar as tarefas');
             }
         } catch (error) {
+            console.log(error)
             setErro('Erro de rede ou servidor');
         }
     };
@@ -27,7 +28,7 @@ export default function Quadro() {
 
     const atualizarStatusTarefa = async (id, novoStatus) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/tarefas/${id}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/tarefas/${id}/editar/`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: novoStatus }),
@@ -40,24 +41,43 @@ export default function Quadro() {
                     )
                 );
             } else {
-                console.error('Erro ao atualizar a tarefa');
+                const errorData = await response.json();
+                console.error('Erro ao atualizar a tarefa:', errorData);
             }
         } catch (error) {
             console.error('Erro de rede ou servidor', error);
         }
     };
 
+    const deletarTarefa = async (id) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/tarefas/${id}/excluir/`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                // remove do estado local
+                setTarefas((prevTarefas) => prevTarefas.filter((tarefa) => tarefa.id !== id));
+            } else {
+                const errorData = await response.json();
+                console.error("Erro ao excluir tarefa:", errorData);
+                setErro(errorData.detail || "Erro ao excluir a tarefa");
+            }
+        } catch (error) {
+            console.error("Erro de rede ou servidor:", error);
+            setErro("Erro de rede ou servidor");
+        }
+    };
+
     const onDragEnd = (result) => {
         const { source, destination, draggableId } = result;
 
-        if (!destination) return; // se soltar fora de um droppable, ignora
+        if (!destination) return; 
 
-        // Se não mudou de coluna, não faz nada
         if (source.droppableId === destination.droppableId) return;
 
         const novoStatus = destination.droppableId;
 
-        // Atualiza estado local imediatamente
         setTarefas((prevTarefas) =>
             prevTarefas.map((tarefa) =>
                 tarefa.id === parseInt(draggableId)
@@ -66,7 +86,6 @@ export default function Quadro() {
             )
         );
 
-        // Atualiza no backend
         atualizarStatusTarefa(parseInt(draggableId), novoStatus);
     };
 
@@ -76,7 +95,7 @@ export default function Quadro() {
 
     return (
         <main className="containerQuadro">
-            
+
             {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
             <DragDropContext onDragEnd={onDragEnd}>
@@ -89,7 +108,7 @@ export default function Quadro() {
                                 {...provided.droppableProps}
                             >
                                 <h2 className="titulo">A Fazer</h2>
-                                <Coluna tarefas={tarefasFazer} />
+                                <Coluna tarefas={tarefasFazer} deletarTarefa={deletarTarefa} />
                                 {provided.placeholder}
                             </div>
                         )}
@@ -103,7 +122,7 @@ export default function Quadro() {
                                 {...provided.droppableProps}
                             >
                                 <h2 className="titulo">Fazendo</h2>
-                                <Coluna tarefas={tarefasFazendo} />
+                                <Coluna tarefas={tarefasFazendo} deletarTarefa={deletarTarefa} />
                                 {provided.placeholder}
                             </div>
                         )}
@@ -117,7 +136,7 @@ export default function Quadro() {
                                 {...provided.droppableProps}
                             >
                                 <h2 className="titulo">Concluído</h2>
-                                <Coluna tarefas={tarefasConcluido} />
+                                <Coluna tarefas={tarefasConcluido} deletarTarefa={deletarTarefa} />
                                 {provided.placeholder}
                             </div>
                         )}

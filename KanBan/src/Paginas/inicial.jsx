@@ -11,7 +11,6 @@ import Sidebar from "../components/sideBar";
 export function Inicial() {
   return (
     <div className="layout">
-      <Sidebar />
       <div className="main-content">
         <Cabecalho />
         <Quadro />

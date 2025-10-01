@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+import { Draggable } from '@hello-pangea/dnd';
 
-import React from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
-
-export default function Coluna({ tarefas }) {
+export default function Coluna({ tarefas, deletarTarefa }) {
     return (
         <div className="coluna">
             {tarefas.length > 0 ? (
@@ -24,6 +21,20 @@ export default function Coluna({ tarefas }) {
                                 <p><strong>Setor:</strong> {tarefa.setor}</p>
                                 <p><strong>Prioridade:</strong> {tarefa.prioridade}</p>
                                 <p><strong>Status:</strong> {tarefa.status}</p>
+                                <button
+                                    onClick={() => deletarTarefa(tarefa.id)}
+                                    style={{
+                                        background: 'red',
+                                        color: 'white',
+                                        padding: '5px 10px',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                        marginTop: '10px'
+                                    }}
+                                >
+                                    Excluir
+                                </button>
                             </div>
                         )}
                     </Draggable>
@@ -34,4 +45,3 @@ export default function Coluna({ tarefas }) {
         </div>
     );
 }
-

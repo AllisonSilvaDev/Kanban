@@ -1,7 +1,7 @@
 @use './variaveis.scss' as *;
 
 .cabecalho {
-    background-color: rgba(0, 0, 0, 0.261);
+    background-color: $cor-destaque;
     height: 80px;
     width: 100vw;
     display: flex;
